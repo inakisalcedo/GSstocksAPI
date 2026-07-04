@@ -11,7 +11,7 @@ def home():
 def stock(ticker):
     try:
         t = Ticker(ticker)
-        stats = t.key_stats
+        stats = t.price
         return stats
     except Exception as e:
         return {"error": str(e)}
