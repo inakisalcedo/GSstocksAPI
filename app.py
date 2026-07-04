@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import yfinance as yf
+from yahooquery import Ticker
 
 app = FastAPI()
 
@@ -10,13 +10,11 @@ def home():
 @app.get("/stock/{ticker}")
 def stock(ticker):
     try:
-        t = yf.Ticker(ticker)
-        info = t.info
-        fast = t.fast_info
+        t = Ticker(ticker)
+        stats = t.key_stats
         return {
-            "currentPrice": fast.get("lastPrice"),
-            "forwardPE": info.get("forwardPE"),
-            "pegRatio": info.get("pegRatio")
+            "forwardPE": stats[ticker].get('forwardPE'),
+            "pegRatio": stats[ticker].get('pegRatio')
         }
     except Exception as e:
         return {"error": str(e)}
