@@ -12,9 +12,6 @@ def stock(ticker):
     try:
         t = Ticker(ticker)
         stats = t.key_stats
-        return {
-            "forwardPE": stats[ticker].get('forwardPE'),
-            "pegRatio": stats[ticker].get('pegRatio')
-        }
+        return stats
     except Exception as e:
         return {"error": str(e)}
