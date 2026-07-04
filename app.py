@@ -9,5 +9,8 @@ def home():
 
 @app.get("/stock/{ticker}")
 def stock(ticker):
-    info = yf.Ticker(ticker).info
-    return info
+    try:
+        info = yf.Ticker(ticker).info
+        return info
+    except Exception as e:
+        return {"error": str(e)}
